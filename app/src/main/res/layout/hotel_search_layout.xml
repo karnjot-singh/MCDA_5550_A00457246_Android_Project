@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_search">
+
+    <ScrollView
+        android:id="@+id/search_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="25dp"
+        app:layout_constraintVertical_bias="0.0"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/search_guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="25dp"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/search_guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="25dp"
+                />
+
+            <ImageView
+                android:id="@+id/search_hotel_ic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_hotel"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="60dp"
+                android:scaleType="fitXY"
+                />
+
+            <TextView
+                android:id="@+id/search_title_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/search_hotel_ic"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:text="@string/search_title"
+                android:textSize="35sp"
+                android:textColor="@color/search_form"
+                android:textAllCaps="true"
+                android:fontFamily="@string/app_font_family"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                />
+
+            <EditText
+                android:id="@+id/checkin_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/search_title_text_view"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:layout_marginTop="15dp"
+                android:padding="15dp"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/search_check_in_date_hint"
+                android:background="@drawable/et_bg"
+                android:inputType="date"
+                android:textColorHint="@color/txt_blue_light"
+                android:textColor="@color/txt_blue"
+                />
+
+            <TextView
+                android:id="@+id/check_in_error"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/checkin_edit_text"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/txt_error"
+                />
+
+            <EditText
+                android:id="@+id/checkout_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/check_in_error"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:background="@drawable/et_bg"
+                android:layout_marginTop="15dp"
+                android:padding="15dp"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/search_check_out_date_hint"
+                android:inputType="date"
+                android:textColorHint="@color/txt_blue_light"
+                android:textColor="@color/txt_blue"
+                />
+
+            <TextView
+                android:id="@+id/check_out_error"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/checkout_edit_text"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/txt_error"
+                />
+
+            <EditText
+                android:id="@+id/guest_name_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/check_out_error"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:background="@drawable/et_bg"
+                android:layout_marginTop="15dp"
+                android:hint="@string/search_guest_name_hint"
+                android:maxLength="20"
+                android:inputType="textPersonName"
+                android:padding="15dp"
+                android:textColorHint="@color/txt_blue_light"
+                android:textColor="@color/txt_blue"
+                />
+
+            <TextView
+                android:id="@+id/guest_name_error"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/guest_name_edit_text"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/txt_error"
+                />
+
+            <EditText
+                android:id="@+id/no_of_guests_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/guest_name_error"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:background="@drawable/et_bg"
+                android:layout_marginTop="15dp"
+                android:padding="15dp"
+                android:inputType="number"
+                android:hint="@string/search_guest_no_hint"
+                android:maxLength="2"
+                android:textColorHint="@color/txt_blue_light"
+                android:textColor="@color/txt_blue"
+                />
+
+            <TextView
+                android:id="@+id/guest_number_error"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/no_of_guests_edit_text"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/txt_error"
+                />
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/guest_number_error"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:text="@string/search_button"
+                android:layout_marginTop="15dp"
+                android:textAllCaps="false"
+                android:textColor="@color/search_form"
+                android:background="@drawable/btn_bg"
+                android:textSize="15dp"
+                />
+
+            <Button
+                android:id="@+id/reset_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                app:layout_constraintTop_toBottomOf="@id/search_button"
+                android:text="@string/search_reset_button"
+                android:layout_marginTop="15dp"
+                android:textAllCaps="false"
+                android:textColor="@color/search_form"
+                android:background="@drawable/btn_bg"
+                android:textSize="15dp"
+                />
+
+            <Button
+                android:id="@+id/view_search_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/search_guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/reset_button"
+                app:layout_constraintEnd_toEndOf="@id/search_guideline_right"
+                android:text="@string/search_view_selections_button"
+                android:layout_marginTop="15dp"
+                android:textAllCaps="false"
+                android:textColor="@color/search_form"
+                android:background="@drawable/btn_bg"
+                android:textSize="15dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

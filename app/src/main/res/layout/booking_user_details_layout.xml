@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+            <TextView
+                android:id="@+id/title_user_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/user_details_title"
+                android:textSize="30sp"
+                android:fontFamily="@string/app_font_family"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:id="@+id/sub_title_user_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/title_user_details_text_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/user_details_sub_title"
+                android:textSize="15sp"
+                android:fontFamily="@string/app_font_family"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:id="@+id/hotel_name_user_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/sub_title_user_details_text_view"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/user_details_hotel_name_text_view"
+                android:textSize="20sp"
+                android:fontFamily="@string/app_font_family"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                />
+
+            <EditText
+                android:id="@+id/hotel_name_user_details_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/hotel_name_user_details_text_view"
+                app:layout_constraintStart_toEndOf="@id/hotel_name_user_details_text_view"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:enabled="false"
+                />
+
+            <TextView
+                android:id="@+id/check_in_user_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/hotel_name_user_details_text_view"
+                app:layout_constraintStart_toStartOf="@id/hotel_name_user_details_text_view"
+                android:text="@string/user_details_check_in_date_text_view"
+                android:textSize="20sp"
+                android:fontFamily="@string/app_font_family"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+
+            <EditText
+                android:id="@+id/check_in_user_details_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/check_in_user_details_text_view"
+                app:layout_constraintStart_toEndOf="@id/hotel_name_user_details_text_view"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:enabled="false"
+                />
+
+            <TextView
+                android:id="@+id/check_out_user_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/check_in_user_details_edit_text"
+                app:layout_constraintStart_toStartOf="@id/hotel_name_user_details_text_view"
+                android:text="@string/user_details_check_out_date_text_view"
+                android:textSize="20sp"
+                android:fontFamily="@string/app_font_family"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+
+            <EditText
+                android:id="@+id/check_out_user_details_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/check_out_user_details_text_view"
+                app:layout_constraintStart_toEndOf="@id/hotel_name_user_details_text_view"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:enabled="false"
+                />
+
+            <TextView
+                android:id="@+id/hotel_price_user_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/check_out_user_details_edit_text"
+                app:layout_constraintStart_toStartOf="@id/hotel_name_user_details_text_view"
+                android:text="@string/user_details_hotel_price_text_view"
+                android:textSize="20sp"
+                android:fontFamily="@string/app_font_family"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+
+            <EditText
+                android:id="@+id/hotel_price_user_details_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/hotel_price_user_details_text_view"
+                app:layout_constraintStart_toEndOf="@id/hotel_name_user_details_text_view"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:enabled="false"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/user_details_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/hotel_name_user_details_text_view"
+                app:layout_constraintTop_toBottomOf="@id/hotel_price_user_details_edit_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/user_details_book_button"
+                android:layout_marginRight="15dp"
+                app:layout_goneMarginLeft="15dp"
+                />
+
+            <Button
+                android:id="@+id/user_details_book_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/user_details_recycler_view"
+                app:layout_constraintStart_toStartOf="@id/user_details_recycler_view"
+                app:layout_constraintEnd_toEndOf="@id/user_details_recycler_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="10dp"
+                android:text="@string/guest_details_book_button"
+                />
+
+    <ProgressBar
+        android:id="@+id/confirmation_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

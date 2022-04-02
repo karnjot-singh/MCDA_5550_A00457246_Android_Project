@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">HotelReservationSystem</string>
+    <string name="app_font_family">sans-serif</string>
+
+    <string name="search_title">SEARCH HOTELS</string>
+    <string name="search_date_hint">MM/DD/YYYY</string>
+    <string name="search_check_in_date_hint">Check in Date</string>
+    <string name="search_check_out_date_hint">Check out Date</string>
+    <string name="search_check_in_date_text_view">Check in Date</string>
+    <string name="search_check_out_date_text_view">Check out Date</string>
+    <string name="search_guest_name_text_view">Your Name</string>
+    <string name="search_guest_name_hint">Name</string>
+    <string name="search_guest_no_text_view">No of Guests</string>
+    <string name="search_guest_no_hint">1</string>
+    <string name="search_button">Search</string>
+    <string name="search_reset_button">Reset</string>
+    <string name="search_view_selections_button">View Selections</string>
+
+    <string name="search_results_title">Hotels</string>
+    <string name="search_results_book_button_text">BOOK</string>
+
+    <string name="user_details_title">Book Hotel</string>
+    <string name="user_details_sub_title">Enter following details to book the hotel</string>
+    <string name="user_details_hotel_name_text_view">Hotel Name</string>
+    <string name="user_details_check_in_date_text_view">Check In</string>
+    <string name="user_details_check_out_date_text_view">Check Out</string>
+    <string name="user_details_hotel_price_text_view">Price</string>
+
+    <string name="guest_details_name_text_view">Guest Name</string>
+    <string name="guest_details_gender_text_view">Gender</string>
+    <string name="guest_details_male_radio_button">Male</string>
+    <string name="guest_details_female_radio_button">Female</string>
+    <string name="guest_details_book_button">Make Booking</string>
+</resources>
