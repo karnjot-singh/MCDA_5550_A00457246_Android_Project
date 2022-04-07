@@ -9,6 +9,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -70,31 +71,11 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
             }
         });
 
-        checkInEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if(b) {
-                    checkInSelected = true;
-                    showDatePickerDialog(System.currentTimeMillis() - 1000);
-                }
-            }
-        });
-
         checkOutEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkInSelected = false;
                 showDatePickerDialog(System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS);
-            }
-        });
-
-        checkOutEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if(b) {
-                    checkInSelected = false;
-                    showDatePickerDialog(System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS);
-                }
             }
         });
 

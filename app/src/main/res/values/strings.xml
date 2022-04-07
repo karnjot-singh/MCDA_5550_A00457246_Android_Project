@@ -17,6 +17,7 @@
     <string name="search_view_selections_button">View Selections</string>
 
     <string name="search_results_title">Hotels</string>
+    <string name="search_results_img">Hotel</string>
     <string name="search_results_book_button_text">BOOK</string>
 
     <string name="user_details_title">Book Hotel</string>
@@ -24,7 +25,10 @@
     <string name="user_details_hotel_name_text_view">Hotel Name</string>
     <string name="user_details_check_in_date_text_view">Check In</string>
     <string name="user_details_check_out_date_text_view">Check Out</string>
-    <string name="user_details_hotel_price_text_view">Price</string>
+    <string name="user_details_hotel_price_text_view">Total Price</string>
+    <string name="user_details_no_of_guest_text_view">No of Guests</string>
+    <dimen name="user_details_text_size">17sp</dimen>
+    <dimen name="reservation_text_size">20sp</dimen>
 
     <string name="guest_details_name_text_view">Guest Name</string>
     <string name="guest_details_gender_text_view">Gender</string>

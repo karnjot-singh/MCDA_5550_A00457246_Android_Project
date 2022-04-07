@@ -5,11 +5,20 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/hotel_details_layout_border.xml" value="0.1375" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable/bg_app.xml" value="0.1625" />
+        <entry key="app/src/main/res/drawable/bg_confirmation.xml" value="0.1625" />
         <entry key="app/src/main/res/drawable/bg_search.xml" value="0.138" />
         <entry key="app/src/main/res/drawable/btn_bg.xml" value="0.1355" />
         <entry key="app/src/main/res/drawable/et_bg.xml" value="0.1355" />
+        <entry key="app/src/main/res/drawable/ic_check_svgrepo_com.xml" value="0.1625" />
+        <entry key="app/src/main/res/drawable/ic_date.xml" value="0.1625" />
+        <entry key="app/src/main/res/drawable/ic_error.xml" value="0.1625" />
         <entry key="app/src/main/res/drawable/ic_hotel.xml" value="0.1355" />
+        <entry key="app/src/main/res/drawable/ic_hotel_confirm.xml" value="0.1625" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable/ic_night.xml" value="0.1625" />
+        <entry key="app/src/main/res/drawable/ic_number_.xml" value="0.1625" />
+        <entry key="app/src/main/res/drawable/ic_person.xml" value="0.1625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/booking_guest_details_layout.xml" value="0.2128623188405797" />
         <entry key="app/src/main/res/layout/booking_user_details_layout.xml" value="0.2128623188405797" />

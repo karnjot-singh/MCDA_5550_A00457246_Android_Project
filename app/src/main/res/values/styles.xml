@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="confirmation_title">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/txt_blue</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">70</item>
+        <item name="android:shadowColor">#a2050505</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:fontFamily">@string/app_font_family</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

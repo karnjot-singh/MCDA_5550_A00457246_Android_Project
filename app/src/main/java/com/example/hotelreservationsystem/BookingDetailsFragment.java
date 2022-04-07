@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class BookingDetailsFragment extends Fragment {
     View view;
-    EditText hotelName, hotelPrice, checkInDate, checkOutDate;
+    EditText hotelName, hotelPrice, checkInDate, checkOutDate, noOfGuestsEditText;
     String userName;
     Integer noOfGuests;
     Button bookButton;
@@ -56,17 +56,20 @@ public class BookingDetailsFragment extends Fragment {
         hotelPrice = view.findViewById(R.id.hotel_price_user_details_edit_text);
         checkInDate = view.findViewById(R.id.check_in_user_details_edit_text);
         checkOutDate = view.findViewById(R.id.check_out_user_details_edit_text);
+        noOfGuestsEditText = view.findViewById(R.id.no_of_guests_user_details_edit_text);
         bookButton = view.findViewById(R.id.user_details_book_button);
         progressBar = view.findViewById(R.id.confirmation_progress_bar);
 
         Bundle bundle = getArguments();
 
         hotelName.setText(bundle.getString("hotelName"));
-        hotelPrice.setText(bundle.getString("hotelPrice"));
+
+        hotelPrice.setText('$' + String.valueOf(bundle.getInt("noOfGuests") * Integer.parseInt(bundle.getString("hotelPrice"))));
         userName = bundle.getString("userName");
         noOfGuests = bundle.getInt("noOfGuests");
         checkInDate.setText(bundle.getString("checkInDate"));
         checkOutDate.setText(bundle.getString("checkOutDate"));
+        noOfGuestsEditText.setText(String.valueOf(bundle.getInt("noOfGuests")));
 
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,10 +128,15 @@ public class BookingDetailsFragment extends Fragment {
         Bundle confirmation = new Bundle();
 
         if(reservationViewModel.getIsError().getValue()) {
-            confirmation.putString("confirmationNumber", reservationViewModel.getError().getValue());
+            confirmation.putString("confirmationNumberError", "Some Error Occurred");
+            Toast.makeText(getActivity(), reservationViewModel.getError().getValue(), Toast.LENGTH_LONG);
         }
         else {
+            confirmation.putString("confirmationNumberError", null);
             confirmation.putString("confirmationNumber", reservationViewModel.getConfirmationNumber().getValue());
+            confirmation.putString("hotelName", hotelName.getText().toString());
+            confirmation.putString("noOfGuests", String.valueOf(noOfGuests));
+            confirmation.putString("checkInDate", checkInDate.getText().toString());
         }
 
         ReservationConfirmationFragment confirmationFragment = new ReservationConfirmationFragment();

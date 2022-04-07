@@ -63,7 +63,7 @@ public class HotelResultsAdapter extends RecyclerView.Adapter<HotelResultsAdapte
         }
         if(hotelAvailability == "false") {
             holder.bookButton.setEnabled(false);
-//            holder.bookButton.setVisibility(View.GONE);
+            holder.bookButton.setVisibility(View.GONE);
         }
     }
 

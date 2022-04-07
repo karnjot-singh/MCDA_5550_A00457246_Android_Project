@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,8 +65,8 @@ public class HotelResultsFragment extends Fragment implements OnClickListener {
         checkIn = bundle.getString("checkInDate");
         checkOut = bundle.getString("checkOutDate");
 
-        String userDetailsText = "Hello "+ userName +", showing results for "+ noOfGuests +
-                " guests from " + checkIn + " to " + checkOut;
+        String userDetailsText = "Hello "+ userName +", showing results for \n"+ noOfGuests +
+                " guests from " + checkIn + " → " + checkOut;
 
         userDetailsTextView.setText(userDetailsText);
 

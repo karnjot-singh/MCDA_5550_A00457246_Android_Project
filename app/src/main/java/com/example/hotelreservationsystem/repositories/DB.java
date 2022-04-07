@@ -8,7 +8,7 @@ public class DB {
     public static RestAdapter getClient() {
         if(adapter==null) {
             adapter = new RestAdapter.Builder()
-                    .setEndpoint("http://192.168.2.15:8000/")
+                    .setEndpoint("http://10.0.2.2:8000/")
                     .build();
         }
 
