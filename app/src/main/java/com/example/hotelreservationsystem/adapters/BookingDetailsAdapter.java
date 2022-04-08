@@ -28,6 +28,7 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
     private Integer noOfGuests;
     private String userName;
     private ArrayList<GuestData> guestDataList;
+    private ArrayList<ViewHolder> holders;
 
     public BookingDetailsAdapter(Context context, Integer guests, String userName) {
         this.layoutInflater = LayoutInflater.from(context);
@@ -41,6 +42,7 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
         View view = layoutInflater.inflate(R.layout.booking_guest_details_layout, parent, false);
         if(guestDataList == null) {
             guestDataList = new ArrayList<>();
+            holders = new ArrayList<>(this.noOfGuests);
             for (int i = 0; i < this.noOfGuests; i++) {
                 guestDataList.add(new GuestData("", "M"));
             }
@@ -54,6 +56,7 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
             holder.guestName.setText(userName);
             guestDataList.get(0).setGuest_name(userName);
         }
+        Log.e("POSITION", String.valueOf(position));
         holder.guestNameTextView.setText("Guest "+(position+1));
 
         holder.guestName.addTextChangedListener(new TextWatcher() {
@@ -83,6 +86,8 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
                 }
             }
         });
+
+        holders.add(position, holder);
     }
 
     @Override
@@ -94,8 +99,12 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
         return guestDataList;
     }
 
+    public ArrayList<ViewHolder> getHolders() {
+        return holders;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView guestNameTextView;
+        TextView guestNameTextView, guestNameErr;
         EditText guestName;
         RadioButton maleRadio, femaleRadio;
         RadioGroup gender;
@@ -104,11 +113,19 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
             super(itemView);
 
             guestNameTextView = itemView.findViewById(R.id.name_guest_details_text_view);
+            guestNameErr = itemView.findViewById(R.id.name_guest_details_error);
             guestName = itemView.findViewById(R.id.name_guest_details_edit_text);
             maleRadio = itemView.findViewById(R.id.male_guest_details_radio_button);
             femaleRadio = itemView.findViewById(R.id.female_guest_details_radio_button);
             gender = itemView.findViewById(R.id.gender_guest_details_radio_group);
         }
 
+        public TextView getGuestNameErr() {
+            return guestNameErr;
+        }
+
+        public EditText getGuestName() {
+            return guestName;
+        }
     }
 }

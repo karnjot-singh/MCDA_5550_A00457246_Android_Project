@@ -5,19 +5,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_33"
+        android:id="@+id/guideline_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".33"
+        app:layout_constraintGuide_percent=".20"
         />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_55"
+        android:id="@+id/guideline_40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".55"
+        app:layout_constraintGuide_percent=".40"
         />
 
     <androidx.constraintlayout.widget.Guideline
@@ -45,19 +45,19 @@
         />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_45"
+        android:id="@+id/guideline_33"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".45"
+        app:layout_constraintGuide_percent=".33"
         />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_95"
+        android:id="@+id/guideline_80"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".95"
+        app:layout_constraintGuide_percent=".80"
         />
 
     <View
@@ -66,7 +66,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_33"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_20"
         android:background="@drawable/bg_app"
         />
 
@@ -74,9 +74,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:alpha="0.8"
+        android:alpha="0.7"
         android:src="@drawable/hotel_confirmation_bg"
-        app:layout_constraintTop_toTopOf="@id/guideline_33"
+        app:layout_constraintTop_toTopOf="@id/guideline_20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,11 +88,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
-        app:layout_constraintTop_toBottomOf="@id/guideline_55"
+        app:layout_constraintTop_toBottomOf="@id/guideline_40"
         android:text="BOOKING NO. \n"
         android:textSize="25sp"
         android:textAlignment="center"
         android:textColor="@color/white"
+        android:textAllCaps="true"
         />
 
     <TextView
@@ -101,7 +102,7 @@
         android:text="BOOKING"
         style="@style/confirmation_title"
         app:layout_constraintStart_toEndOf="@id/ic_hotel"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_33"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_20"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         />
@@ -112,7 +113,7 @@
         android:text="CONFIRMATION"
         style="@style/confirmation_title"
         app:layout_constraintStart_toEndOf="@id/ic_hotel"
-        app:layout_constraintTop_toBottomOf="@id/guideline_33"
+        app:layout_constraintTop_toBottomOf="@id/guideline_20"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:textColor="@color/white"
@@ -126,7 +127,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="-45dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_33"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_20"
         />
 
     <View
@@ -134,8 +135,8 @@
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
-        app:layout_constraintTop_toTopOf="@id/guideline_45"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_95"
+        app:layout_constraintTop_toTopOf="@id/guideline_33"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_80"
         android:background="@drawable/bg_confirmation"
         />
 
@@ -144,8 +145,8 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/ic_error"
-        app:layout_constraintTop_toTopOf="@id/guideline_45"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_45"
+        app:layout_constraintTop_toTopOf="@id/guideline_33"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_33"
         app:layout_constraintStart_toStartOf="@id/guideline_middle"
         app:layout_constraintEnd_toEndOf="@id/guideline_middle"
         />

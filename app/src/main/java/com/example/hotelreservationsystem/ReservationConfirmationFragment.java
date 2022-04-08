@@ -63,7 +63,9 @@ public class ReservationConfirmationFragment extends Fragment {
             checkInImg.setVisibility(View.GONE);
         }
         else {
-            reservationTextView.setText(reservationTextView.getText().toString() + getArguments().getString("confirmationNumber"));
+            String confirmationNumber = getArguments().getString("confirmationNumber");
+            confirmationNumber = confirmationNumber.substring(1, confirmationNumber.length()-1);
+            reservationTextView.setText(reservationTextView.getText().toString() + confirmationNumber);
             hotelNameTextView.setText(getArguments().getString("hotelName"));
             guestsTextView.setText(getArguments().getString("noOfGuests") + " Guests");
             nightsTextView.setText("2 Nights");

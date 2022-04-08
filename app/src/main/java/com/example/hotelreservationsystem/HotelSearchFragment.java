@@ -138,6 +138,7 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isSearched = false;
                 noOfGuests.setText("");
                 noOfGuests.setError(null);
                 guestName.setText("");

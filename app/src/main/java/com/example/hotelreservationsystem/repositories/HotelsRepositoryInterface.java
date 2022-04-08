@@ -10,5 +10,8 @@ import retrofit.http.GET;
 public interface HotelsRepositoryInterface {
 
     @GET("/api/hotel")
-    public void getHotelsList(Callback<List<HotelData>> callback);
+    void getHotelsList(Callback<List<HotelData>> callback);
+
+    @GET("/api/hotel")
+    Callback<List<HotelData>> getHotelsData();
 }

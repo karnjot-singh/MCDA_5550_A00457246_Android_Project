@@ -91,9 +91,11 @@ public class BookingDetailsFragment extends Fragment {
                             new SimpleDateFormat("MM/dd/yyyy").parse(bundle.getString("checkOutDate"))
                     ));
 
-                    reservationViewModel.createReservation(reservationData);
-                    progressBar.setVisibility(View.VISIBLE);
-                    confirmReservation();
+                    if(validateData()) {
+                        reservationViewModel.createReservation(reservationData);
+                        progressBar.setVisibility(View.VISIBLE);
+                        confirmReservation();
+                    }
                 } catch (ParseException e) {
                     Toast.makeText(getContext(), "INVALID DATE FORMAT", Toast.LENGTH_LONG).show();
                 }
@@ -103,6 +105,24 @@ public class BookingDetailsFragment extends Fragment {
         setupRecyclerView();
     }
 
+    public boolean validateData() {
+        boolean validated = true;
+        ArrayList<BookingDetailsAdapter.ViewHolder> holders = bookingDetailsAdapter.getHolders();
+
+        for(int i=0; i < holders.size(); i++) {
+            BookingDetailsAdapter.ViewHolder holder = holders.get(i);
+
+            String value = holder.getGuestName().getText().toString();
+            if(value==null || value.isEmpty() || value.trim().isEmpty()) {
+                holder.getGuestNameErr().setText("This field is required");
+                validated = false;
+            }
+            else {
+                holder.getGuestNameErr().setText(null);
+            }
+        }
+        return validated;
+    }
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = view.findViewById(R.id.user_details_recycler_view);

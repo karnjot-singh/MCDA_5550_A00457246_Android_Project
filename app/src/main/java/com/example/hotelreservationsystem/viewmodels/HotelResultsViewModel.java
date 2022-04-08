@@ -56,4 +56,9 @@ public class HotelResultsViewModel extends ViewModel {
     public MutableLiveData<String> getError() {
         return error;
     }
+
+    public void getHotelListData() {
+        Callback<List<HotelData>> callback = DB.getHotelsRepository().getHotelsData();
+
+    }
 }

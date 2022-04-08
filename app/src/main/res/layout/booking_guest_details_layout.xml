@@ -49,10 +49,22 @@
         />
 
     <TextView
+        android:id="@+id/name_guest_details_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/name_guest_details_edit_text"
+        app:layout_constraintStart_toStartOf="@id/user_details_guide_text"
+        app:layout_constraintEnd_toEndOf="@id/user_details_guideline_right"
+        android:fontFamily="@string/app_font_family"
+        android:textColor="@color/txt_error"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
         android:id="@+id/gender_guest_details_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/name_guest_details_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/name_guest_details_error"
         app:layout_constraintEnd_toStartOf="@id/user_details_guide_text"
         android:text="@string/guest_details_gender_text_view"
         android:textSize="@dimen/user_details_text_size"

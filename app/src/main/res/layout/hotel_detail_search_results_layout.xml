@@ -9,15 +9,24 @@
     android:background="@drawable/hotel_details_layout_border"
     >
 
+    <ImageView
+        android:id="@+id/ic_hotel_name"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_hotel_confirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <TextView
         android:id="@+id/hotel_name_search_results_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ic_hotel_name"
+        app:layout_constraintStart_toEndOf="@id/ic_hotel_name"
         android:text="HOTEL NAME"
         android:textSize="25dp"
-        android:padding="5dp"
+        android:layout_marginLeft="10dp"
         android:fontFamily="@string/app_font_family"
         android:textColor="@color/white"
         />
@@ -27,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ic_hotel_name"
         android:text="HOTEL PRICE"
         android:textSize="20dp"
         android:padding="5dp"
@@ -40,12 +49,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/hotel_name_search_results_text_view"
-        app:layout_constraintStart_toStartOf="@id/hotel_name_search_results_text_view"
+        app:layout_constraintStart_toStartOf="@id/ic_hotel_name"
         android:text="HOTEL AVAILABILITY"
         android:textSize="15dp"
         android:textColor="@color/white"
         android:fontFamily="@string/app_font_family"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="35dp"
         />
     
     <Button
