@@ -1,64 +1,41 @@
 package com.example.hotelreservationsystem.viewmodels;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.hotelreservationsystem.models.HotelData;
 import com.example.hotelreservationsystem.repositories.DB;
-import com.example.hotelreservationsystem.repositories.HotelsRepository;
 
 import java.util.List;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HotelResultsViewModel extends ViewModel {
-    private MutableLiveData<List<HotelData>> hotelData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> isError = new MutableLiveData<>();
-    private MutableLiveData<Boolean> isFetched = new MutableLiveData<>();
-    private MutableLiveData<String> error = new MutableLiveData<>();
+    private MutableLiveData<List<HotelData>> hotelData;
 
     public HotelResultsViewModel() {
-        isError.setValue(false);
-        isFetched.setValue(false);
-        HotelsRepository.getHotelsRepository().getHotelsList(new Callback<List<HotelData>>() {
-            @Override
-            public void success(List<HotelData> hotelDataList, Response response) {
-                hotelData.setValue(hotelDataList);
-                isError.setValue(false);
-                isFetched.setValue(true);
-            }
-
-            @Override
-            public void failure(RetrofitError err) {
-                isError.setValue(true);
-                error.setValue(err.toString());
-                isFetched.setValue(true);
-            }
-        });
+        hotelData = new MutableLiveData<>();
     }
 
-    public MutableLiveData<List<HotelData>> getHotelData() {
+
+    public MutableLiveData<List<HotelData>> getHotelDataObserver() {
         return hotelData;
     }
 
-    public MutableLiveData<Boolean> getIsError() {
-        return isError;
-    }
-
-    public MutableLiveData<Boolean> getIsFetched() {
-        return isFetched;
-    }
-
-    public MutableLiveData<String> getError() {
-        return error;
-    }
-
     public void getHotelListData() {
-        Callback<List<HotelData>> callback = DB.getHotelsRepository().getHotelsData();
+        Call<List<HotelData>> call = DB.getHotelsRepository().getHotelsList();
+        call.enqueue(new Callback<List<HotelData>>() {
+            @Override
+            public void onResponse(Call<List<HotelData>> call, Response<List<HotelData>> response) {
+                hotelData.postValue(response.body());
+            }
 
+            @Override
+            public void onFailure(Call<List<HotelData>> call, Throwable t) {
+                hotelData.postValue(null);
+            }
+        });
     }
 }

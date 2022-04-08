@@ -1,11 +1,9 @@
 package com.example.hotelreservationsystem;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,22 +13,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hotelreservationsystem.adapters.HotelResultsAdapter;
-import com.example.hotelreservationsystem.models.GuestData;
 import com.example.hotelreservationsystem.models.HotelData;
-import com.example.hotelreservationsystem.repositories.HotelsRepository;
 import com.example.hotelreservationsystem.viewmodels.HotelResultsViewModel;
 
 import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class HotelResultsFragment extends Fragment implements OnClickListener {
 
@@ -70,14 +61,12 @@ public class HotelResultsFragment extends Fragment implements OnClickListener {
 
         userDetailsTextView.setText(userDetailsText);
 
-        getHotelData();
+        setUpRecyclerView();
 
     }
 
     @Override
-    public void onClick(View view, int position) {
-        HotelData hotel = hotelData.get(position);
-
+    public void onClick(HotelData hotel) {
         String hotelName = hotel.getName();
         String price = hotel.getPrice();
 
@@ -99,37 +88,27 @@ public class HotelResultsFragment extends Fragment implements OnClickListener {
         fragmentTransaction.commitAllowingStateLoss();
     }
 
-    private void getHotelData() {
-        progressBar.setVisibility(View.VISIBLE);
-        hotelsViewModel = new ViewModelProvider(this).get(HotelResultsViewModel.class);
-        hotelsViewModel.getIsFetched().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isFetched) {
-                if(isFetched){
-                    updateData();
-                }
-            }
-        });
-    }
-
-    private void updateData() {
-        if(hotelsViewModel.getIsError().getValue()) {
-            Toast.makeText(getActivity(), hotelsViewModel.getError().getValue(), Toast.LENGTH_LONG).show();
-        }
-        else {
-            hotelData = hotelsViewModel.getHotelData().getValue();
-            setUpRecyclerView();
-        }
-    }
-
     private void setUpRecyclerView() {
-        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_search_results);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        HotelResultsAdapter hotelResultsAdapter = new HotelResultsAdapter(getActivity(), hotelData);
+        HotelResultsAdapter hotelResultsAdapter = new HotelResultsAdapter(getActivity(), hotelData, this);
         recyclerView.setAdapter(hotelResultsAdapter);
 
-        hotelResultsAdapter.setItemClickListener(this);
+        hotelsViewModel = new ViewModelProvider(this).get(HotelResultsViewModel.class);
+        hotelsViewModel.getHotelDataObserver().observe(getViewLifecycleOwner(), new Observer<List<HotelData>>() {
+            @Override
+            public void onChanged(List<HotelData> hotelDataList) {
+                if(hotelDataList != null) {
+                    hotelResultsAdapter.setHotelData(hotelDataList);
+                }
+                else {
+                    Toast.makeText(getActivity(), "ENABLE TO FETCH DATA", Toast.LENGTH_LONG).show();
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+        hotelsViewModel.getHotelListData();
     }
 }

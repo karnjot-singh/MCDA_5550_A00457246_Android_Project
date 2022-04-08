@@ -8,14 +8,4 @@
             <padding android:bottom="8dp" android:top="8dp" />
         </shape>
     </item>
-
-    <item android:state_enabled="false">
-        <shape>
-            <stroke android:color="@color/search_form_light"/>
-            <corners android:radius="2dp" />
-            <stroke android:color="@color/search_form"/>
-            <solid android:color="@color/search_form_medium" />
-            <padding android:bottom="8dp" android:top="8dp" />
-        </shape>
-    </item>
 </selector>

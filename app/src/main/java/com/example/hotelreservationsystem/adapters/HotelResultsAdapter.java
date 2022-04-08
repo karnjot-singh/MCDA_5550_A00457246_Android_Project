@@ -25,9 +25,10 @@ public class HotelResultsAdapter extends RecyclerView.Adapter<HotelResultsAdapte
     private LayoutInflater layoutInflater;
     private OnClickListener clickListener;
 
-    public HotelResultsAdapter(Context context, List<HotelData> hotelDataList) {
+    public HotelResultsAdapter(Context context, List<HotelData> hotelDataList, OnClickListener onClickListener) {
         this.layoutInflater = LayoutInflater.from(context);
         this.hotelDataList = hotelDataList;
+        this.clickListener = onClickListener;
     }
 
     @NonNull
@@ -45,6 +46,12 @@ public class HotelResultsAdapter extends RecyclerView.Adapter<HotelResultsAdapte
 
         holder.hotelName.setText(hotelName);
         holder.hotelPrice.setText("$"+hotelPrice);
+        holder.bookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickListener.onClick(hotelDataList.get(position));
+            }
+        });
 
         ForegroundColorSpan green = new ForegroundColorSpan(Color.GREEN);
         ForegroundColorSpan red = new ForegroundColorSpan(Color.RED);
@@ -64,22 +71,30 @@ public class HotelResultsAdapter extends RecyclerView.Adapter<HotelResultsAdapte
         if(hotelAvailability == "false") {
             holder.bookButton.setEnabled(false);
             holder.bookButton.setVisibility(View.GONE);
+        } else {
+            holder.bookButton.setEnabled(true);
+            holder.bookButton.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public int getItemCount() {
-        if(hotelDataList != null) {
-            return hotelDataList.size();
+        if(this.hotelDataList != null) {
+            return this.hotelDataList.size();
         }
         return 0;
+    }
+
+    public void setHotelData(List<HotelData> hotelData) {
+        this.hotelDataList = hotelData;
+        notifyDataSetChanged();
     }
 
     public void setItemClickListener(OnClickListener onClickListener) {
         this.clickListener = onClickListener;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView hotelName, hotelPrice, hotelAvailability;
         Button bookButton;
 
@@ -92,14 +107,8 @@ public class HotelResultsAdapter extends RecyclerView.Adapter<HotelResultsAdapte
 
             bookButton = view.findViewById(R.id.book_hotel_search_results_button);
 
-            bookButton.setOnClickListener(this);
+
         }
 
-        @Override
-        public void onClick(View view) {
-            if(clickListener != null) {
-                clickListener.onClick(view, getAbsoluteAdapterPosition());
-            }
-        }
     }
 }

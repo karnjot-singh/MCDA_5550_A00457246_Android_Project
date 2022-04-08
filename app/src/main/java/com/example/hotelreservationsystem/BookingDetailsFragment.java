@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,11 +18,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hotelreservationsystem.adapters.BookingDetailsAdapter;
 import com.example.hotelreservationsystem.models.GuestData;
+import com.example.hotelreservationsystem.models.HotelData;
 import com.example.hotelreservationsystem.models.ReservationData;
 import com.example.hotelreservationsystem.viewmodels.HotelResultsViewModel;
 import com.example.hotelreservationsystem.viewmodels.ReservationViewModel;
@@ -28,6 +32,9 @@ import com.example.hotelreservationsystem.viewmodels.ReservationViewModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class BookingDetailsFragment extends Fragment {
     View view;
@@ -38,6 +45,7 @@ public class BookingDetailsFragment extends Fragment {
     BookingDetailsAdapter bookingDetailsAdapter;
     ReservationViewModel reservationViewModel;
     ProgressBar progressBar;
+    ArrayList<BookingDetailsAdapter.ViewHolder> holders;
 
     @Nullable
     @Override
@@ -74,30 +82,46 @@ public class BookingDetailsFragment extends Fragment {
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<GuestData> guestData = bookingDetailsAdapter.getGuestDataList();
+                if(validateData()) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    ArrayList<GuestData> guestData = new ArrayList<>();
+                    for(BookingDetailsAdapter.ViewHolder holder : holders) {
+                        String name = holder.getGuestName().getText().toString();
+                        int genderSelected = holder.getGender().getCheckedRadioButtonId();
+                        RadioButton radioButton = (RadioButton) holder.itemView.findViewById(genderSelected);
+                        String radioText = radioButton.getText().toString().trim().toLowerCase();
 
-                ReservationData reservationData = new ReservationData();
-                reservationData.setHotel_name(hotelName.getText().toString());
-                reservationData.setCheckin(checkInDate.getText().toString());
-                reservationData.setCheckout(checkOutDate.getText().toString());
-                reservationData.setGuests_list(guestData);
+                        GuestData guest;
 
-                try {
-                    reservationData.setCheckin(new SimpleDateFormat("yyyy-MM-dd").format(
-                            new SimpleDateFormat("MM/dd/yyyy").parse(bundle.getString("checkInDate"))
-                    ));
+                        if(radioText.equals("female")) {
+                            guest = new GuestData(name,"F");
+                        } else {
+                            guest = new GuestData(name,"M");
+                        }
 
-                    reservationData.setCheckout(new SimpleDateFormat("yyyy-MM-dd").format(
-                            new SimpleDateFormat("MM/dd/yyyy").parse(bundle.getString("checkOutDate"))
-                    ));
-
-                    if(validateData()) {
-                        reservationViewModel.createReservation(reservationData);
-                        progressBar.setVisibility(View.VISIBLE);
-                        confirmReservation();
+                        guestData.add(guest);
                     }
-                } catch (ParseException e) {
-                    Toast.makeText(getContext(), "INVALID DATE FORMAT", Toast.LENGTH_LONG).show();
+
+                    ReservationData reservationData = new ReservationData();
+                    reservationData.setHotel_name(hotelName.getText().toString());
+                    reservationData.setCheckin(checkInDate.getText().toString());
+                    reservationData.setCheckout(checkOutDate.getText().toString());
+                    reservationData.setGuests_list(guestData);
+
+                    try {
+                        String datePattern = "dd MMM yyyy";
+                        reservationData.setCheckin(new SimpleDateFormat("yyyy-MM-dd").format(
+                                new SimpleDateFormat(datePattern).parse(bundle.getString("checkInDate"))
+                        ));
+
+                        reservationData.setCheckout(new SimpleDateFormat("yyyy-MM-dd").format(
+                                new SimpleDateFormat(datePattern).parse(bundle.getString("checkOutDate"))
+                        ));
+                    } catch (ParseException e) {
+                        Toast.makeText(getContext(), "INVALID DATE FORMAT", Toast.LENGTH_LONG).show();
+                    }
+
+                    makeReservation(reservationData);
                 }
             }
         });
@@ -107,21 +131,51 @@ public class BookingDetailsFragment extends Fragment {
 
     public boolean validateData() {
         boolean validated = true;
-        ArrayList<BookingDetailsAdapter.ViewHolder> holders = bookingDetailsAdapter.getHolders();
+        holders = bookingDetailsAdapter.getHolders();
 
         for(int i=0; i < holders.size(); i++) {
             BookingDetailsAdapter.ViewHolder holder = holders.get(i);
 
             String value = holder.getGuestName().getText().toString();
-            if(value==null || value.isEmpty() || value.trim().isEmpty()) {
-                holder.getGuestNameErr().setText("This field is required");
-                validated = false;
-            }
-            else {
-                holder.getGuestNameErr().setText(null);
+            boolean isValidName = validateGuestName(value, holder.getGuestNameErr());
+
+            int genderSelected = holder.getGender().getCheckedRadioButtonId();
+            boolean isValidGender = validateGender(genderSelected, holder.getGenderErr());
+
+            if(validated){
+                validated = isValidName & isValidGender;
             }
         }
         return validated;
+    }
+
+    private boolean validateGender(int value, TextView genderErr) {
+        genderErr.setText(null);
+        genderErr.setVisibility(View.GONE);
+        if(value == -1 ) {
+            genderErr.setText("Select gender");
+            genderErr.setVisibility(View.VISIBLE);
+            return false;
+        }
+        return false;
+    }
+
+    private boolean validateGuestName(String text, TextView guestNameErr) {
+        guestNameErr.setVisibility(View.GONE);
+
+        if (text == null || text.length() == 0) {
+            guestNameErr.setText("Please enter your name");
+            guestNameErr.setVisibility(View.VISIBLE);
+        } else if (!Pattern.matches("^[a-zA-Z ]+$", text)) {
+            guestNameErr.setText("Name can contain only alphabets");
+            guestNameErr.setVisibility(View.VISIBLE);
+        }else if (text.length() < 4) {
+            guestNameErr.setText("Name should have at least 4 characters");
+            guestNameErr.setVisibility(View.VISIBLE);
+        } else {
+            return true;
+        }
+        return false;
     }
 
     private void setupRecyclerView() {
@@ -131,29 +185,33 @@ public class BookingDetailsFragment extends Fragment {
         recyclerView.setAdapter(bookingDetailsAdapter);
     }
 
-    private void confirmReservation() {
-        reservationViewModel = new ViewModelProvider(this).get(ReservationViewModel.class);
-
-        reservationViewModel.getIsFetched().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+    private void makeReservation(ReservationData reservationData) {
+        reservationViewModel.getConfirmationNumberObserver().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onChanged(Boolean isFetched) {
-                if(isFetched){
-                    updateData();
+            public void onChanged(String s) {
+                progressBar.setVisibility(View.GONE);
+                if(s != null) {
+                    updateData(s, false);
                 }
+                else {
+                    updateData("FAILED TO MAKE RESERVATION", true);
+                }
+                reservationViewModel.resetConfirmationNumber();
             }
         });
+        reservationViewModel.createReservation(reservationData);
     }
 
-    private void updateData() {
+    private void updateData(String data, boolean isError) {
         Bundle confirmation = new Bundle();
 
-        if(reservationViewModel.getIsError().getValue()) {
-            confirmation.putString("confirmationNumberError", "Some Error Occurred");
-            Toast.makeText(getActivity(), reservationViewModel.getError().getValue(), Toast.LENGTH_LONG);
+        if(isError) {
+            confirmation.putString("confirmationNumberError", data);
+            Toast.makeText(getActivity(), data, Toast.LENGTH_LONG);
         }
         else {
             confirmation.putString("confirmationNumberError", null);
-            confirmation.putString("confirmationNumber", reservationViewModel.getConfirmationNumber().getValue());
+            confirmation.putString("confirmationNumber", data);
             confirmation.putString("hotelName", hotelName.getText().toString());
             confirmation.putString("noOfGuests", String.valueOf(noOfGuests));
             confirmation.putString("checkInDate", checkInDate.getText().toString());

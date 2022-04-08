@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,30 +82,36 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
             }
         });
 
-        guestName.addTextChangedListener(new TextValidator(guestName) {
+        guestName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void validate(TextView textView, String text) {
-                if(isSearched) {
-                    validateGuestName();
-                }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(isSearched) { validateGuestName(); }
             }
         });
 
-        noOfGuests.addTextChangedListener(new TextValidator(noOfGuests) {
+        noOfGuests.addTextChangedListener(new TextWatcher() {
             @Override
-            public void validate(TextView textView, String text) {
-                if(isSearched) {
-                    validateNoOfGuests();
-                }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(isSearched) { validateNoOfGuests(); }
             }
         });
 
-        checkOutEditText.addTextChangedListener(new TextValidator(checkOutEditText) {
+        checkOutEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void validate(TextView textView, String text) {
-                if(isSearched) {
-                    validateCheckOut();
-                }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(isSearched) { validateCheckOut(); }
             }
         });
 
@@ -181,6 +190,9 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
         } else if (!Pattern.matches("^[a-zA-Z ]+$", text)) {
             guestNameErr.setText("Name can contain only alphabets");
             guestNameErr.setVisibility(View.VISIBLE);
+        }else if (text.length() < 4) {
+            guestNameErr.setText("Name should have at least 4 characters");
+            guestNameErr.setVisibility(View.VISIBLE);
         } else {
             return true;
         }
@@ -220,18 +232,11 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
         checkInErr.setVisibility(View.GONE);
         checkOutErr.setVisibility(View.GONE);
 
-        if(checkInText == null || checkInText.length()==0){
-            checkInErr.setText("Please select check in date");
-            checkInErr.setVisibility(View.VISIBLE);
-        }
-        else if(checkOutText == null || checkOutText.length() == 0) {
-            checkOutErr.setText("Please select check out date");
-            checkOutErr.setVisibility(View.VISIBLE);
-        }
-        else if(checkInText != null && checkOutText != null && checkInText.length() > 0 && checkOutText.length() > 0) {
+        if(checkInText != null && checkOutText != null && checkInText.length() > 0 && checkOutText.length() > 0) {
             try {
-                Date checkIn = new SimpleDateFormat("MM/dd/yyyy").parse(checkInEditText.getText().toString());
-                Date checkOut = new SimpleDateFormat("MM/dd/yyyy").parse(checkOutEditText.getText().toString());
+                String datePattern = "dd MMM yyyy";
+                Date checkIn = new SimpleDateFormat(datePattern).parse(checkInEditText.getText().toString());
+                Date checkOut = new SimpleDateFormat(datePattern).parse(checkOutEditText.getText().toString());
 
                 if(!checkOut.after(checkIn)) {
                     checkOutErr.setVisibility(View.VISIBLE);
@@ -240,11 +245,21 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
                     return true;
                 }
             } catch (ParseException e) {
-                //Toast.makeText(getActivity(), "Make Sure dates are valid!!", Toast.LENGTH_LONG).show();
                 checkOutErr.setVisibility(View.VISIBLE);
                 checkOutErr.setText("Make Sure dates are valid!!");
             }
         }
+        else {
+            if(checkInText == null || checkInText.length()==0){
+                checkInErr.setText("Please select check in date");
+                checkInErr.setVisibility(View.VISIBLE);
+            }
+            if(checkOutText == null || checkOutText.length() == 0) {
+                checkOutErr.setText("Please select check out date");
+                checkOutErr.setVisibility(View.VISIBLE);
+            }
+        }
+
         return false;
     }
 
@@ -264,10 +279,18 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+        String strDate = "01 Jan 2023";
+        try {
+            Date date = new SimpleDateFormat("MM/dd/yyyy").parse((month+1)+"/"+dayOfMonth+"/"+year);
+            strDate = new SimpleDateFormat("dd MMM yyyy").format(date);
+        } catch (ParseException e) {
+            Toast.makeText(getContext(), "INVALID DATE FORMAT", Toast.LENGTH_LONG);
+        }
+
         if(checkInSelected) {
-            checkInEditText.setText((month+1)+"/"+dayOfMonth+"/"+year);
+            checkInEditText.setText(strDate);
         } else {
-            checkOutEditText.setText((month+1)+"/"+dayOfMonth+"/"+year);
+            checkOutEditText.setText(strDate);
         }
     }
 }

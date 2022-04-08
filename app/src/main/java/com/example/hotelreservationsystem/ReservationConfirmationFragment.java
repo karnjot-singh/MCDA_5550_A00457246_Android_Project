@@ -25,7 +25,6 @@ public class ReservationConfirmationFragment extends Fragment {
     TextView reservationTextView, hotelNameTextView, guestsTextView, nightsTextView, checkInTextView;
     ImageView hotelNameImg, guestsImg, nightsImg, checkInImg, resultImg;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

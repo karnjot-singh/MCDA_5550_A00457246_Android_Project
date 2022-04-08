@@ -1,21 +1,30 @@
 package com.example.hotelreservationsystem.repositories;
 
-import retrofit.RestAdapter;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DB {
-    private static RestAdapter adapter;
+    private static Retrofit retrofit;
+    private static String BASE_URL = "http://192.168.2.15:8000/";
 
-    public static RestAdapter getClient() {
-        if(adapter==null) {
-            adapter = new RestAdapter.Builder()
-                    .setEndpoint("http://192.168.2.15:8000/")
+    public static Retrofit getClient() {
+        if(retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-        return adapter;
+        return retrofit;
     }
 
+
     public static HotelsRepositoryInterface getHotelsRepository() {
-        HotelsRepositoryInterface hotelsRepository = adapter.create(HotelsRepositoryInterface.class);
+        HotelsRepositoryInterface hotelsRepository = DB.getClient().create(HotelsRepositoryInterface.class);
         return hotelsRepository;
+    }
+
+    public static ReservationsRepositoryInterface getReservationRepository() {
+        ReservationsRepositoryInterface repositoryInterface = DB.getClient().create(ReservationsRepositoryInterface.class);
+        return repositoryInterface;
     }
 }
