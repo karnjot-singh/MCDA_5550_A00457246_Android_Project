@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -203,7 +204,8 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog infoMessage = new AlertDialog.Builder(getActivity()).create();
+                AlertDialog infoMessage = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.alert_dialog)).create();
+//                AlertDialog infoMessage = new AlertDialog.Builder(getActivity()).create();
                 infoMessage.setTitle("Your Selections");
                 infoMessage.setMessage(String.format("Check In Date: %s\nCheck Out Date: %s\nName: %s\nGuests: %s",
                                             checkInEditText.getText().toString(),
