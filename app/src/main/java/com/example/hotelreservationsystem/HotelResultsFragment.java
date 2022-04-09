@@ -83,7 +83,7 @@ public class HotelResultsFragment extends Fragment implements OnClickListener {
 
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction.remove(HotelResultsFragment.this);
-        fragmentTransaction.replace(R.id.main_layout, bookingDetailsFragment);
+        fragmentTransaction.replace(R.id.frame_layout, bookingDetailsFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
     }

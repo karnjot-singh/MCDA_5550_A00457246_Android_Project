@@ -35,4 +35,10 @@
     <string name="guest_details_male_radio_button">Male</string>
     <string name="guest_details_female_radio_button">Female</string>
     <string name="guest_details_book_button">Make Booking</string>
+
+
+    <string name="search_hotels_menu_item">Search Hotels</string>
+    <string name="about_menu_item">About</string>
+
+    <string name="about_app"><b>Hotel Reservation System</b>\nMCDA5550 Project\n\n<b>Developed by:</b>\nKarnjot Singh\nA00457246</string>
 </resources>

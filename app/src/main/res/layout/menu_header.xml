@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="192dp"
+    android:gravity="bottom"
+    android:padding="16dp"
+    android:background="@drawable/bg_app">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent=".40"
+        android:orientation="vertical"
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_hotel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_header"
+        app:layout_constraintBottom_toTopOf="@+id/header_title_text"
+        />
+
+    <TextView
+        android:id="@+id/header_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HOTELS"
+        android:textColor="@color/txt_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/header_sub_title_text"
+        android:textAllCaps="true"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/header_sub_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find best hotels here"
+        android:textColor="@color/txt_blue"
+        android:textAllCaps="true"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

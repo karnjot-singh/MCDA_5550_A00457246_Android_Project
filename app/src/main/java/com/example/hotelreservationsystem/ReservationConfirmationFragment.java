@@ -73,4 +73,7 @@ public class ReservationConfirmationFragment extends Fragment {
             resultImg.setImageResource(R.drawable.ic_check);
         }
     }
+
+
+
 }

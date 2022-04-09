@@ -1,10 +1,13 @@
 package com.example.hotelreservationsystem;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -157,7 +160,7 @@ public class BookingDetailsFragment extends Fragment {
             genderErr.setVisibility(View.VISIBLE);
             return false;
         }
-        return false;
+        return true;
     }
 
     private boolean validateGuestName(String text, TextView guestNameErr) {
@@ -172,10 +175,8 @@ public class BookingDetailsFragment extends Fragment {
         }else if (text.length() < 4) {
             guestNameErr.setText("Name should have at least 4 characters");
             guestNameErr.setVisibility(View.VISIBLE);
-        } else {
-            return true;
         }
-        return false;
+        return true;
     }
 
     private void setupRecyclerView() {
@@ -215,6 +216,9 @@ public class BookingDetailsFragment extends Fragment {
             confirmation.putString("hotelName", hotelName.getText().toString());
             confirmation.putString("noOfGuests", String.valueOf(noOfGuests));
             confirmation.putString("checkInDate", checkInDate.getText().toString());
+
+            SharedPreferences searchData = getActivity().getSharedPreferences(HotelSearchFragment.myPreference, Context.MODE_PRIVATE);
+            searchData.edit().clear().commit();
         }
 
         ReservationConfirmationFragment confirmationFragment = new ReservationConfirmationFragment();
@@ -222,7 +226,13 @@ public class BookingDetailsFragment extends Fragment {
 
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction.remove(BookingDetailsFragment.this);
-        fragmentTransaction.replace(R.id.main_layout, confirmationFragment);
+        fragmentTransaction.replace(R.id.frame_layout, confirmationFragment, "CONFIRMATION_FRAGMENT");
+        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        if(getActivity().getCurrentFocus()!=null) {
+            inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
     }

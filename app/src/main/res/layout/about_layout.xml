@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/bg_app">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent=".40"
+        android:orientation="vertical"
+        />
+
+    <ImageView
+        android:id="@+id/about_hotel_ic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_hotel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/about_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HOTELS"
+        android:textColor="@color/txt_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/about_hotel_ic"
+        android:textAllCaps="true"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        />
+
+    <View
+        android:id="@+id/about_line"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/search_form"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/about_title_text"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/header_sub_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_app"
+        android:textColor="@color/txt_blue"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/about_line"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

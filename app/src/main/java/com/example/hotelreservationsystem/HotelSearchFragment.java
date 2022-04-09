@@ -2,7 +2,9 @@ package com.example.hotelreservationsystem;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.text.ParseException;
@@ -35,6 +39,12 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
     TextView checkInErr, checkOutErr, guestNameErr, noOfGuestsErr;
     Boolean checkInSelected, isSearched;
     Button searchButton, resetButton, viewButton;
+    SharedPreferences searchData;
+    public static final String myPreference = "myPref";
+    public static final String guestNameKey = "guestNameKey";
+    public static final String guestCountKey = "guestCountKey";
+    public static final String checkInKey = "checkInKey";
+    public static final String checkOutKey = "checkOutKey";
 
     @Nullable
     @Override
@@ -63,6 +73,21 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
         resetButton = view.findViewById(R.id.reset_button);
         searchButton = view.findViewById(R.id.search_button);
         viewButton = view.findViewById(R.id.view_search_button);
+
+        searchData = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+
+        if (searchData.contains(guestNameKey)) {
+            guestName.setText(searchData.getString(guestNameKey, ""));
+        }
+        if (searchData.contains(guestCountKey)) {
+            noOfGuests.setText(searchData.getString(guestCountKey, ""));
+        }
+        if (searchData.contains(checkInKey)) {
+            checkInEditText.setText(searchData.getString(checkInKey, ""));
+        }
+        if (searchData.contains(checkOutKey)) {
+            checkOutEditText.setText(searchData.getString(checkOutKey, ""));
+        }
 
         isSearched = false;
 
@@ -125,6 +150,14 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
                 boolean isCheckOutValid = validateCheckOut();
 
                 if ( isCheckOutValid && isGuestNameValid && isNoOfGuestsValid) {
+                    searchData = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = searchData.edit();
+                    editor.putString(guestNameKey, guestName.getText().toString());
+                    editor.putString(guestCountKey, noOfGuests.getText().toString());
+                    editor.putString(checkInKey, checkInEditText.getText().toString());
+                    editor.putString(checkOutKey, checkOutEditText.getText().toString());
+                    editor.commit();
+
                     Bundle bundle = new Bundle();
 
                     bundle.putString("checkInDate", checkInEditText.getText().toString());
@@ -136,7 +169,13 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
                     hotelResultsFragment.setArguments(bundle);
 
                     FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.main_layout, hotelResultsFragment);
+                    fragmentTransaction.replace(R.id.frame_layout, hotelResultsFragment, "HOTEL_RESULTS");
+                    InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    if(getActivity().getCurrentFocus()!=null) {
+                        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                                InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
                     fragmentTransaction.remove(HotelSearchFragment.this);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
@@ -147,6 +186,9 @@ public class HotelSearchFragment extends Fragment implements DatePickerDialog.On
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                searchData = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+                searchData.edit().clear().commit();
+
                 isSearched = false;
                 noOfGuests.setText("");
                 noOfGuests.setError(null);
